@@ -66,7 +66,7 @@ def get_latest_revision(page):
 @app.route('/page/<page>/<int:timestamp>', methods=['GET'])
 def get_revision_at_time(page, timestamp):
     revisions = get_revisions(page)
-    print revisions
+    print(revisions)
 
     if timestamp < revisions[0]:
         abort(404)

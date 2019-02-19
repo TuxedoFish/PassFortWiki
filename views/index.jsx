@@ -18,6 +18,9 @@ class Index extends React.Component {
 		};
 
 		this.loadingView = this.loadingView.bind(this);
+
+		this.select = this.select.bind(this);
+		this.deselect = this.deselect.bind(this);
 	}
 
 	loadingView() {
@@ -28,6 +31,13 @@ class Index extends React.Component {
 				</div>;
 	}
 
+	select(key) {
+		this.setState({ "key" : key });
+	}
+	deselect() {
+		this.setState({ "key" : -1 });
+	}
+
 	render() {
 		return <div className="wiki-front-page">
 			<NavBar />
@@ -36,10 +46,13 @@ class Index extends React.Component {
 				{this.state.data==null ? (
 			        this.loadingView()
 			    ) : (
-			        this.state.data.titles.map((page) => {
+			        this.state.data.titles.map((page, id) => {
 						return ( <PageStub
 									page_title_ = {page}
-									selected = {false}
+									selected = {this.state.key == id}
+									id = {id}
+									onSelect = {this.select}
+									onDeselect = {this.deselect}
 								/>
 						);
 					})
